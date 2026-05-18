@@ -1,0 +1,410 @@
+/* ============================================================
+   AKMAA — Trendy Overrides
+   Layered on top of style.css for modern visual upgrades
+   ============================================================ */
+
+/* ── Design tokens ───────────────────────────────────────── */
+:root {
+  --red:        #e80000;
+  --red-dark:   #a80000;
+  --red-light:  #ff4444;
+  --grad-red:   linear-gradient(135deg, #e80000 0%, #ff6b35 100%);
+  --grad-dark:  linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 100%);
+  --glass-bg:   rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --shadow-red: 0 8px 32px rgba(232, 0, 0, 0.35);
+  --shadow-card:0 20px 60px rgba(0, 0, 0, 0.12);
+  --radius-lg:  18px;
+  --radius-pill:999px;
+  --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Smooth scrolling ────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
+/* ── Google Font upgrade — add Bebas Neue for headings ───── */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* ── Global body polish ──────────────────────────────────── */
+body {
+  font-family: 'Inter', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Section titles — gradient highlight on span ─────────── */
+.section-header .section-title {
+  font-size: 44px;
+  letter-spacing: -0.5px;
+  font-weight: 800;
+}
+.section-header .section-title span {
+  background: var(--grad-red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated underline accent after section headings */
+.section-header .section-title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: var(--grad-red);
+  border-radius: var(--radius-pill);
+  margin: 14px auto 0;
+  transition: width 0.5s ease;
+}
+.section-header.left .section-title::after {
+  margin-left: 0;
+}
+.section-header .section-title:hover::after {
+  width: 120px;
+}
+
+/* ── Buttons — gradient with glow ───────────────────────── */
+.btn--base {
+  background: var(--grad-red) !important;
+  border: none !important;
+  color: #fff !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-size: 13px;
+  padding: 14px 34px !important;
+  border-radius: var(--radius-pill) !important;
+  box-shadow: var(--shadow-red);
+  transition: var(--transition) !important;
+  position: relative;
+  overflow: hidden;
+}
+.btn--base::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #ff6b35, #e80000);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  border-radius: inherit;
+}
+.btn--base:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 14px 40px rgba(232, 0, 0, 0.5) !important;
+  color: #fff !important;
+}
+.btn--base:hover::before { opacity: 1; }
+.btn--base:active { transform: translateY(-1px) !important; }
+
+/* ── Sticky header — glassmorphism ──────────────────────── */
+.header-section.header-fixed {
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08) !important;
+  border-bottom: 1px solid rgba(232, 0, 0, 0.08);
+}
+
+/* Nav links — animated red underline on hover */
+.header-section.header-fixed .main-menu li a {
+  position: relative;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #1a1a1a;
+  padding-bottom: 4px;
+}
+.header-section.header-fixed .main-menu li a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--grad-red);
+  border-radius: var(--radius-pill);
+  transition: width 0.3s ease;
+}
+.header-section.header-fixed .main-menu li a:hover::after,
+.header-section.header-fixed .main-menu li.active a::after {
+  width: 100%;
+}
+.header-section.header-fixed .main-menu li a:hover {
+  color: var(--red) !important;
+}
+
+/* ── Hero / Banner section ───────────────────────────────── */
+.banner-section {
+  position: relative;
+  overflow: hidden;
+}
+/* Gradient overlay on top of existing red overlay */
+.banner-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10, 0, 0, 0.65) 0%,
+    rgba(232, 0, 0, 0.25) 60%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+.banner-section .container { position: relative; z-index: 2; }
+
+/* Hero text */
+.banner-section h1,
+.banner-section .banner-title {
+  font-family: 'Bebas Neue', 'Kanit', sans-serif;
+  letter-spacing: 2px;
+  text-shadow: 0 4px 24px rgba(0,0,0,0.5);
+}
+
+/* ── Event / Blog cards ──────────────────────────────────── */
+.blog-item {
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: var(--transition) !important;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+.blog-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.18);
+  border-color: rgba(232, 0, 0, 0.2);
+}
+.blog-item .blog-thumb {
+  overflow: hidden;
+  position: relative;
+}
+.blog-item .blog-thumb img {
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+.blog-item:hover .blog-thumb img {
+  transform: scale(1.08);
+}
+/* Date badge — gradient pill */
+.blog-date {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 2;
+}
+.blog-date span {
+  background: var(--grad-red) !important;
+  color: #fff !important;
+  font-size: 11px !important;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 5px 14px !important;
+  border-radius: var(--radius-pill);
+  box-shadow: 0 4px 16px rgba(232,0,0,0.4);
+}
+.blog-content {
+  padding: 20px 22px 24px !important;
+}
+.blog-content .title {
+  font-size: 15px !important;
+  font-weight: 700;
+  line-height: 1.5;
+  color: #1a1a1a;
+}
+.blog-content .title a {
+  color: inherit;
+  transition: color 0.3s ease;
+}
+.blog-content .title a:hover {
+  color: var(--red) !important;
+}
+
+/* "NEW" badge on first (latest) event card */
+.blog-section .row > div:first-child .blog-item::before {
+  content: 'NEW';
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--grad-red);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  z-index: 10;
+  box-shadow: 0 4px 14px rgba(232,0,0,0.5);
+}
+.blog-section .row > div:first-child .blog-item {
+  position: relative;
+}
+
+/* ── Training / Service cards ────────────────────────────── */
+.training-item,
+.service-item,
+.feature-item {
+  border-radius: var(--radius-lg) !important;
+  transition: var(--transition) !important;
+  overflow: hidden;
+}
+.training-item:hover,
+.service-item:hover,
+.feature-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(232, 0, 0, 0.15);
+}
+
+/* ── Trainer / Team cards ────────────────────────────────── */
+.trainer-item,
+.team-item {
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden;
+  transition: var(--transition) !important;
+}
+.trainer-item:hover,
+.team-item:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* ── Section backgrounds — subtle dark/gradient bands ────── */
+.blog-section {
+  background: linear-gradient(180deg, #f9f9fb 0%, #f2f2f8 100%);
+}
+.call-to-action-section,
+.cta-section {
+  background: var(--grad-dark) !important;
+}
+
+/* ── Testimonial cards ───────────────────────────────────── */
+.testimonial-item,
+.testi-item {
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+  transition: var(--transition);
+}
+.testimonial-item:hover,
+.testi-item:hover {
+  box-shadow: 0 18px 56px rgba(232,0,0,0.12);
+  transform: translateY(-6px);
+}
+
+/* ── Fan Fact / Counter section ──────────────────────────── */
+.fan-fact-section,
+.counter-section {
+  background: var(--grad-dark) !important;
+  position: relative;
+  overflow: hidden;
+}
+.fan-fact-section::before,
+.counter-section::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(232,0,0,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Footer — sleek dark gradient ────────────────────────── */
+.footer-section {
+  background: linear-gradient(160deg, #0d0d0d 0%, #1a0000 50%, #0d0d0d 100%) !important;
+  border-top: 2px solid rgba(232, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+.footer-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--grad-red);
+}
+
+/* ── Scroll-to-top button ────────────────────────────────── */
+.scroll-to-top,
+#scroll-top {
+  background: var(--grad-red) !important;
+  border-radius: 50% !important;
+  box-shadow: var(--shadow-red) !important;
+  transition: var(--transition) !important;
+}
+.scroll-to-top:hover,
+#scroll-top:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 36px rgba(232,0,0,0.5) !important;
+}
+
+/* ── Preloader — subtle pulse on logo ────────────────────── */
+.loader-container img {
+  animation: logoPulse 1.4s ease-in-out infinite;
+}
+@keyframes logoPulse {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.06); opacity: 0.85; }
+}
+
+/* ── Inner page banners ──────────────────────────────────── */
+.inner-hero-section,
+.page-title-section {
+  position: relative;
+  overflow: hidden;
+}
+.inner-hero-section::after,
+.page-title-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(10,0,0,0.7) 0%, rgba(232,0,0,0.3) 100%);
+  pointer-events: none;
+}
+
+/* ── Gallery items ───────────────────────────────────────── */
+.gallery-item {
+  border-radius: var(--radius-lg) !important;
+  overflow: hidden;
+  transition: var(--transition) !important;
+}
+.gallery-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+}
+
+/* ── Contact / Form fields ───────────────────────────────── */
+.form-control:focus,
+input:focus,
+textarea:focus {
+  border-color: var(--red) !important;
+  box-shadow: 0 0 0 3px rgba(232, 0, 0, 0.12) !important;
+  outline: none !important;
+}
+
+/* ── Swiper pagination bullets ───────────────────────────── */
+.swiper-pagination-bullet-active {
+  background: var(--red) !important;
+}
+.swiper-pagination-bullet {
+  transition: all 0.3s ease;
+}
+
+/* ── AOS — slightly snappier easing ─────────────────────── */
+[data-aos] {
+  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+/* ── Responsive tweaks ───────────────────────────────────── */
+@media (max-width: 768px) {
+  .section-header .section-title { font-size: 32px; }
+  .blog-item .blog-thumb img     { height: 180px; }
+}
+@media (max-width: 480px) {
+  .section-header .section-title { font-size: 26px; }
+  .btn--base { padding: 11px 24px !important; font-size: 12px; }
+}
